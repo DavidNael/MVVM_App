@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvmapp/presentation/theme_manager.dart';
+import '../presentation/resources/theme_manager.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp.internal({super.key});
@@ -17,11 +17,4 @@ class _MyAppState extends State<MyApp> {
       theme: getApplicationTheme(),
     );
   }
-}
-
-class Person {
-  late final name;
-  late final age;
-
-  Person({this.name, this.age});
 }
