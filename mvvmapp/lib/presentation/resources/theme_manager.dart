@@ -51,7 +51,7 @@ ThemeData getApplicationTheme() {
         color: ColorManager.darkGrey,
         fontSize: FontSize.s16,
       ),
-      displayMedium: getMediumTextStyle(
+      displayMedium: getRegularTextStyle(
         color: ColorManager.lightGrey,
         fontSize: FontSize.s14,
       ),
@@ -59,11 +59,17 @@ ThemeData getApplicationTheme() {
         color: ColorManager.grey1,
         fontSize: FontSize.s12,
       ),
-      bodySmall: getRegularTextStyle(
-          color: ColorManager.grey1, fontSize: FontSize.s10),
-      bodyLarge: getRegularTextStyle(
-        fontSize: FontSize.s18,
-        color: ColorManager.grey,
+      bodyLarge: getMediumTextStyle(
+        fontSize: FontSize.s16,
+        color: ColorManager.primary,
+      ),
+      bodyMedium: getMediumTextStyle(
+        color: ColorManager.grey1,
+        fontSize: FontSize.s14,
+      ),
+      bodySmall: getMediumTextStyle(
+        color: ColorManager.grey1,
+        fontSize: FontSize.s12,
       ),
     ),
     // Input decoration theme

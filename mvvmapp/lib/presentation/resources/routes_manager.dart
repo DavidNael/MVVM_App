@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mvvmapp/presentation/forgot_password/forgot_password_view.dart';
 import 'package:mvvmapp/presentation/login/login_view.dart';
 import 'package:mvvmapp/presentation/main/main_view.dart';
+import 'package:mvvmapp/presentation/onboarding/view/onboarding_view.dart';
 import 'package:mvvmapp/presentation/register/register_view.dart';
+import 'package:mvvmapp/presentation/resources/strings_manager.dart';
 import 'package:mvvmapp/presentation/splash/splash_view.dart';
 import 'package:mvvmapp/presentation/store_details/store_details_view.dart';
 
@@ -13,6 +15,7 @@ class Routes {
   static const String forgotPassword = '/forgotPassword';
   static const String main = '/main';
   static const String storeDetails = '/storeDetails';
+  static const String onBoarding = '/onBoarding';
 }
 
 class RoutesGenerator {
@@ -30,6 +33,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => const MainView());
       case Routes.storeDetails:
         return MaterialPageRoute(builder: (_) => const StoreDetailsView());
+      case Routes.onBoarding:
+        return MaterialPageRoute(builder: (_) => const OnboardingView());
       default:
         return undefinedRoute;
     }
@@ -38,7 +43,7 @@ class RoutesGenerator {
   static Route<dynamic> undefinedRoute = MaterialPageRoute(
     builder: (_) => const Scaffold(
       body: Center(
-        child: Text('Undefined Route...'),
+        child: Text(AppStrings.undefinedRoute),
       ),
     ),
   );
