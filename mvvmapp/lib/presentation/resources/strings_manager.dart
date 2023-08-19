@@ -14,4 +14,14 @@ class AppStrings {
   static const String onBoardingBodyText4 =
       "Tut app is an awesome flutter application using clean architecture #4";
   static const String skipText = "Skip";
+  static const String username = "Username";
+  static const String password = "Password";
+  static const String login = "Login";
+  static const String usernameEmpty = "Please enter your username";
+  static const String passwordEmpty = "Please enter your password";
+  static const String loginErrorMessage =
+      "Please check your username and password";
+  static const String forgotPassword = "Forgot Password?";
+  static const String notMember = "Not a member? Sign up";
+  static const String register = "Register";
 }

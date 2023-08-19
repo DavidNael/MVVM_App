@@ -22,18 +22,18 @@ class RepositoryImpl implements Repository {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.login(loginRequest);
-        if (response.status == ApiInternalStatus.SUCCESS) {
+        if (response.status == ApiInternalStatus.success) {
           return Right(response.toDomain());
         } else {
-          return Left(Failure(ApiInternalStatus.ERROR,
-              response.message ?? ResponseMessage.DEFAULT));
+          return Left(Failure(ApiInternalStatus.error,
+              response.message ?? ResponseMessage.defaultError));
         }
       } catch (e) {
         return Left(ErrorHandler.handle(e).failure);
       }
     } else {
       return Left(
-        DataSource.NO_INTERNET_CONNECTION.getFailure(),
+        DataSource.noInternetConnection.getFailure(),
       );
     }
   }

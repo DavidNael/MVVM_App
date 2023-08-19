@@ -7,7 +7,8 @@ class ErrorHandler implements Exception {
     if (error is DioException) {
       failure = _handleError(error);
     } else {
-      failure = Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
+      failure =
+          Failure(ResponseCode.defaultError, ResponseMessage.defaultError);
     }
   }
 }
@@ -15,11 +16,11 @@ class ErrorHandler implements Exception {
 Failure _handleError(DioException error) {
   switch (error.type) {
     case DioExceptionType.connectionTimeout:
-      return DataSource.CONNECTION_TIMEOUT.getFailure();
+      return DataSource.connectionTimeout.getFailure();
     case DioExceptionType.sendTimeout:
-      return DataSource.SEND_TIMEOUT.getFailure();
+      return DataSource.sendTimeout.getFailure();
     case DioExceptionType.receiveTimeout:
-      return DataSource.RECEIVE_TIMEOUT.getFailure();
+      return DataSource.receiveTimeout.getFailure();
     case DioExceptionType.badResponse:
       if (error.response != null &&
           error.response?.statusCode != null &&
@@ -27,127 +28,129 @@ Failure _handleError(DioException error) {
         return Failure(
             error.response!.statusCode!, error.response!.statusMessage!);
       } else {
-        return DataSource.DEFAULT.getFailure();
+        return DataSource.defaultError.getFailure();
       }
     case DioExceptionType.cancel:
-      return DataSource.CANCEL.getFailure();
+      return DataSource.cancel.getFailure();
     case DioExceptionType.unknown:
-      return DataSource.UNKNOWN.getFailure();
+      return DataSource.unknownError.getFailure();
     default:
-      return DataSource.DEFAULT.getFailure();
+      return DataSource.defaultError.getFailure();
   }
 }
 
 enum DataSource {
-  SUCCESS,
-  No_CONTENT,
-  BAD_REQUEST,
-  UNAUTHORIZED,
-  FORBIDDEN,
-  NOT_FOUND,
-  INTERNAL_SERVER_ERROR,
-  SERVICE_UNAVAILABLE,
-  NO_INTERNET_CONNECTION,
-  CONNECTION_TIMEOUT,
-  CANCEL,
-  RECEIVE_TIMEOUT,
-  SEND_TIMEOUT,
-  CACHE_ERROR,
-  DEFAULT,
-  UNKNOWN,
+  success,
+  noContent,
+  badRequest,
+  unauthorized,
+  forbidden,
+  notFound,
+  internalServerError,
+  serviceUnavailable,
+  noInternetConnection,
+  connectionTimeout,
+  cancel,
+  receiveTimeout,
+  sendTimeout,
+  cacheError,
+  defaultError,
+  unknownError,
 }
 
-extension DataSouceExtension on DataSource {
+extension DataSourceExtension on DataSource {
   Failure getFailure() {
     switch (this) {
-      case DataSource.SUCCESS:
-        return Failure(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-      case DataSource.No_CONTENT:
-        return Failure(ResponseCode.NO_CONTENT, ResponseMessage.NO_CONTENT);
-      case DataSource.BAD_REQUEST:
-        return Failure(ResponseCode.BAD_REQUEST, ResponseMessage.BAD_REQUEST);
-      case DataSource.UNAUTHORIZED:
-        return Failure(ResponseCode.UNAUTHORIZED, ResponseMessage.UNAUTHORIZED);
-      case DataSource.FORBIDDEN:
-        return Failure(ResponseCode.FORBIDDEN, ResponseMessage.FORBIDDEN);
-      case DataSource.NOT_FOUND:
-        return Failure(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
-      case DataSource.INTERNAL_SERVER_ERROR:
-        return Failure(ResponseCode.INTERNAL_SERVER_ERROR,
-            ResponseMessage.INTERNAL_SERVER_ERROR);
-      case DataSource.SERVICE_UNAVAILABLE:
-        return Failure(ResponseCode.SERVICE_UNAVAILABLE,
-            ResponseMessage.SERVICE_UNAVAILABLE);
-      case DataSource.NO_INTERNET_CONNECTION:
-        return Failure(ResponseCode.NO_INTERNET_CONNECTION,
-            ResponseMessage.NO_INTERNET_CONNECTION);
-      case DataSource.CONNECTION_TIMEOUT:
-        return Failure(ResponseCode.CONNECTION_TIMEOUT,
-            ResponseMessage.CONNECTION_TIMEOUT);
-      case DataSource.CANCEL:
-        return Failure(ResponseCode.CANCEL, ResponseMessage.CANCEL);
-      case DataSource.RECEIVE_TIMEOUT:
+      case DataSource.success:
+        return Failure(ResponseCode.success, ResponseMessage.success);
+      case DataSource.noContent:
+        return Failure(ResponseCode.noContent, ResponseMessage.noContent);
+      case DataSource.badRequest:
+        return Failure(ResponseCode.badRequest, ResponseMessage.badRequest);
+      case DataSource.unauthorized:
+        return Failure(ResponseCode.unauthorized, ResponseMessage.unauthorized);
+      case DataSource.forbidden:
+        return Failure(ResponseCode.forbidden, ResponseMessage.forbidden);
+      case DataSource.notFound:
+        return Failure(ResponseCode.notFound, ResponseMessage.notFound);
+      case DataSource.internalServerError:
+        return Failure(ResponseCode.internalServerError,
+            ResponseMessage.internalServerError);
+      case DataSource.serviceUnavailable:
+        return Failure(ResponseCode.serviceUnavailable,
+            ResponseMessage.serviceUnavailable);
+      case DataSource.noInternetConnection:
+        return Failure(ResponseCode.noInternetConnection,
+            ResponseMessage.noInternetConnection);
+      case DataSource.connectionTimeout:
         return Failure(
-            ResponseCode.RECEIVE_TIMEOUT, ResponseMessage.RECEIVE_TIMEOUT);
-      case DataSource.SEND_TIMEOUT:
-        return Failure(ResponseCode.SEND_TIMEOUT, ResponseMessage.SEND_TIMEOUT);
-      case DataSource.CACHE_ERROR:
-        return Failure(ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR);
-      case DataSource.DEFAULT:
-        return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
-      case DataSource.UNKNOWN:
-        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+            ResponseCode.connectionTimeout, ResponseMessage.connectionTimeout);
+      case DataSource.cancel:
+        return Failure(ResponseCode.cancel, ResponseMessage.cancel);
+      case DataSource.receiveTimeout:
+        return Failure(
+            ResponseCode.receiveTimeout, ResponseMessage.receiveTimeout);
+      case DataSource.sendTimeout:
+        return Failure(ResponseCode.sendTimeout, ResponseMessage.sendTimeout);
+      case DataSource.cacheError:
+        return Failure(ResponseCode.cacheError, ResponseMessage.cacheError);
+      case DataSource.defaultError:
+        return Failure(ResponseCode.defaultError, ResponseMessage.defaultError);
+      case DataSource.unknownError:
+        return Failure(ResponseCode.unknownError, ResponseMessage.unknownError);
       default:
-        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+        return Failure(ResponseCode.unknownError, ResponseMessage.unknownError);
     }
   }
 }
 
 class ResponseCode {
   //server error codes
-  static const int SUCCESS = 200;
-  static const int NO_CONTENT = 201;
-  static const int BAD_REQUEST = 400;
-  static const int UNAUTHORIZED = 401;
-  static const int FORBIDDEN = 403;
-  static const int NOT_FOUND = 404;
-  static const int INTERNAL_SERVER_ERROR = 500;
-  static const int SERVICE_UNAVAILABLE = 503;
+  static const int success = 200;
+  static const int noContent = 201;
+  static const int badRequest = 400;
+  static const int unauthorized = 401;
+  static const int forbidden = 403;
+  static const int notFound = 404;
+  static const int internalServerError = 500;
+  static const int serviceUnavailable = 503;
 
   //local error codes
-  static const int CONNECTION_TIMEOUT = -1;
-  static const int CANCEL = -2;
-  static const int RECEIVE_TIMEOUT = -3;
-  static const int SEND_TIMEOUT = -4;
-  static const int CACHE_ERROR = -5;
-  static const int NO_INTERNET_CONNECTION = -6;
-  static const int DEFAULT = -7;
-  static const int UNKNOWN = -8;
+  static const int connectionTimeout = -1;
+  static const int cancel = -2;
+  static const int receiveTimeout = -3;
+  static const int sendTimeout = -4;
+  static const int cacheError = -5;
+  static const int noInternetConnection = -6;
+  static const int defaultError = -7;
+  static const int unknownError = -8;
 }
 
 class ResponseMessage {
-  static const String SUCCESS = 'Success';
-  static const String NO_CONTENT = 'No Content';
-  static const String BAD_REQUEST = 'Bad Request, Please try again.';
-  static const String UNAUTHORIZED = 'User is not authorized, try again later.';
-  static const String FORBIDDEN = 'Forbidden Access Denied';
-  static const String NOT_FOUND = 'Not Found';
-  static const String INTERNAL_SERVER_ERROR =
+  static const String success = 'Success';
+  static const String noContent = 'No Content';
+  static const String badRequest = 'Bad Request, Please try again.';
+  static const String unauthorized = 'User is not authorized, try again later.';
+  static const String forbidden = 'Forbidden Access Denied';
+  static const String notFound = 'Not Found';
+  static const String internalServerError =
       'Something went wrong, please try again later.';
-  static const String SERVICE_UNAVAILABLE = 'Service Unavailable';
-  static const String CONNECTION_TIMEOUT =
+  static const String serviceUnavailable = 'Service Unavailable';
+  static const String connectionTimeout =
       'Connection Timeout, Please try again.';
-  static const String CANCEL = 'Request was Cancelled';
-  static const String RECEIVE_TIMEOUT = 'Connection Timeout, Please try again.';
-  static const String SEND_TIMEOUT = 'Connection Timeout, Please try again.';
-  static const String CACHE_ERROR = 'Cache Error';
-  static const String NO_INTERNET_CONNECTION =
+  static const String cancel = 'Request was Cancelled';
+  static const String receiveTimeout = 'Connection Timeout, Please try again.';
+  static const String sendTimeout = 'Connection Timeout, Please try again.';
+  static const String cacheError = 'Cache Error';
+  static const String noInternetConnection =
       'No Internet Connection, check your connection and try again.';
-  static const String DEFAULT = 'Something went wrong, please try again later.';
-  static const String UNKNOWN = 'Something went wrong, please try again later.';
+  static const String defaultError =
+      'Something went wrong, please try again later.';
+  static const String unknownError =
+      'Something went wrong, please try again later.';
 }
 
 class ApiInternalStatus {
-  static const int SUCCESS = 0;
-  static const int ERROR = 1;
+  static const int success = 0;
+  static const int error = 1;
 }
