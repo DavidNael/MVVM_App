@@ -1,7 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:mvvmapp/app/app_prefs.dart';
+import 'package:mvvmapp/app/dependency_injection.dart';
 import 'package:mvvmapp/presentation/base/base_view_model.dart';
 import 'package:mvvmapp/presentation/common/freezed_data_classes.dart';
+import 'package:mvvmapp/presentation/common/state_renderer/state_renderer.dart';
+import 'package:mvvmapp/presentation/common/state_renderer/state_renderer_impl.dart';
+
+import '../../../domain/usecase/login_usecase.dart';
 
 class LoginViewModel extends BaseViewModel
     implements LoginViewModelInputs, LoginViewModelOutputs {
@@ -12,36 +19,49 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _loginButtonController =
       StreamController<void>.broadcast();
-
+  final StreamController isLoggedInController = StreamController<bool>();
+  final AppPreferences _appPreferences = getItInstance<AppPreferences>();
   LoginObject _loginObject = LoginObject(email: "", password: "");
-  // final LoginUseCase _loginUseCase;
-  // LoginViewModel(this._loginUseCase);
+  final LoginUseCase _loginUseCase;
+  LoginViewModel(this._loginUseCase);
   //base
   @override
   void dispose() {
+    super.dispose();
     _userNameController.close();
     _passwordController.close();
     _loginButtonController.close();
+    isLoggedInController.close();
   }
 
   @override
-  void start() {}
+  void start() {
+    inputState.add(StartState());
+  }
 
   //inputs
   @override
   login() async {
-    // (
-    //   await _loginUseCase.execute(
-    //     LoginInput(_loginObject.email, _loginObject.password),
-    //   )
-    // ).fold(
-    //   (left) {
-    //     if (kDebugMode) print(left.message);
-    //   },
-    //   (right) {
-    //     if (kDebugMode) print(right.customer);
-    //   },
-    // );
+    inputState
+        .add(LoadingState(stateRendererState: StateRendererState.loadingPopup));
+    (await _loginUseCase.execute(
+      LoginInput(_loginObject.email, _loginObject.password),
+    ))
+        .fold(
+      (failure) {
+        inputState.add(ErrorState(
+          stateRendererState: StateRendererState.errorPopup,
+          message: failure.message,
+        ));
+        if (kDebugMode) print(failure.message);
+      },
+      (model) {
+        if (kDebugMode) print(model.customer);
+        inputState.add(StartState());
+        _appPreferences.setIsLoggedIn(true);
+        isLoggedInController.add(true);
+      },
+    );
   }
 
   @override
@@ -82,11 +102,11 @@ class LoginViewModel extends BaseViewModel
 
   //Private methods
   bool _isUserNameValid(String userName) {
-    return userName.length > 6 && userName.isNotEmpty;
+    return userName.isNotEmpty;
   }
 
   bool _isPasswordValid(String password) {
-    return password.length > 6 && password.isNotEmpty;
+    return password.isNotEmpty;
   }
 
   bool _isValidInputs() {

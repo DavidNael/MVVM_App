@@ -6,4 +6,5 @@ import '../models/models.dart';
 
 abstract class Repository {
   Future<Either<Failure, AuthenticationModel>> login(LoginRequest loginRequest);
+  Future<Either<Failure, ForgotPasswordModel>> forgotPassword(ForgotPasswordRequest loginRequest);
 }

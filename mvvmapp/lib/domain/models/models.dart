@@ -14,16 +14,16 @@ class SliderViewObject {
 }
 
 class CustomerModel {
-  int id;
+  String id;
   String name;
   int numOfNotifications;
   CustomerModel(this.id, this.name, this.numOfNotifications);
 }
 
 class ContactsModel {
-  int phone;
+  String phone;
   String email;
-  int link;
+  String link;
   ContactsModel(this.phone, this.email, this.link);
 }
 
@@ -31,4 +31,10 @@ class AuthenticationModel {
   CustomerModel? customer;
   ContactsModel? contacts;
   AuthenticationModel(this.customer, this.contacts);
+}
+
+class ForgotPasswordModel {
+  String oldPassword;
+  String newPassword;
+  ForgotPasswordModel(this.oldPassword, this.newPassword);
 }

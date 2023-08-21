@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mvvmapp/app/app_prefs.dart';
+import 'package:mvvmapp/app/dependency_injection.dart';
 import 'package:mvvmapp/domain/models/models.dart';
 import 'package:mvvmapp/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:mvvmapp/presentation/resources/assets_manager.dart';
@@ -20,6 +22,7 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController();
   final OnBoardingViewModel _viewModel = OnBoardingViewModel();
+  final AppPreferences _appPreferences = getItInstance<AppPreferences>();
   @override
   void initState() {
     _viewModel.start();
@@ -76,6 +79,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
+                  _appPreferences.setShowOnboarding(false);
                   Navigator.pushReplacementNamed(context, Routes.login);
                 },
                 child: Text(

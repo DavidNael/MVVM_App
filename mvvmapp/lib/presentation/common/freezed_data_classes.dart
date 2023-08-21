@@ -8,3 +8,9 @@ factory LoginObject({
   required String password,
 }) = _LoginObject;
 }
+@freezed
+class ForgotPasswordObject with _$ForgotPasswordObject{
+factory ForgotPasswordObject({
+  required String email,
+}) = _ForgotPasswordObject;
+}

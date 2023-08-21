@@ -149,3 +149,123 @@ abstract class _LoginObject implements LoginObject {
   _$$_LoginObjectCopyWith<_$_LoginObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$ForgotPasswordObject {
+  String get email => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ForgotPasswordObjectCopyWith<ForgotPasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ForgotPasswordObjectCopyWith<$Res> {
+  factory $ForgotPasswordObjectCopyWith(ForgotPasswordObject value,
+          $Res Function(ForgotPasswordObject) then) =
+      _$ForgotPasswordObjectCopyWithImpl<$Res, ForgotPasswordObject>;
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class _$ForgotPasswordObjectCopyWithImpl<$Res,
+        $Val extends ForgotPasswordObject>
+    implements $ForgotPasswordObjectCopyWith<$Res> {
+  _$ForgotPasswordObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_value.copyWith(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_ForgotPasswordObjectCopyWith<$Res>
+    implements $ForgotPasswordObjectCopyWith<$Res> {
+  factory _$$_ForgotPasswordObjectCopyWith(_$_ForgotPasswordObject value,
+          $Res Function(_$_ForgotPasswordObject) then) =
+      __$$_ForgotPasswordObjectCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$$_ForgotPasswordObjectCopyWithImpl<$Res>
+    extends _$ForgotPasswordObjectCopyWithImpl<$Res, _$_ForgotPasswordObject>
+    implements _$$_ForgotPasswordObjectCopyWith<$Res> {
+  __$$_ForgotPasswordObjectCopyWithImpl(_$_ForgotPasswordObject _value,
+      $Res Function(_$_ForgotPasswordObject) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_$_ForgotPasswordObject(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ForgotPasswordObject implements _ForgotPasswordObject {
+  _$_ForgotPasswordObject({required this.email});
+
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'ForgotPasswordObject(email: $email)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ForgotPasswordObject &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ForgotPasswordObjectCopyWith<_$_ForgotPasswordObject> get copyWith =>
+      __$$_ForgotPasswordObjectCopyWithImpl<_$_ForgotPasswordObject>(
+          this, _$identity);
+}
+
+abstract class _ForgotPasswordObject implements ForgotPasswordObject {
+  factory _ForgotPasswordObject({required final String email}) =
+      _$_ForgotPasswordObject;
+
+  @override
+  String get email;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ForgotPasswordObjectCopyWith<_$_ForgotPasswordObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}

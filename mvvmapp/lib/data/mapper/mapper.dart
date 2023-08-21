@@ -7,7 +7,7 @@ import '../response/responses.dart';
 extension CustomerResponseMapper on CustomerResponse? {
   CustomerModel toDomain() {
     return CustomerModel(
-      this?.id.nonNullable ?? Constants.zero,
+      this?.id.nonNullable ?? Constants.emptyString,
       this?.name.nonNullable ?? Constants.emptyString,
       this?.numOfNotifications.nonNullable ?? Constants.zero,
     );
@@ -17,9 +17,9 @@ extension CustomerResponseMapper on CustomerResponse? {
 extension ContactsResponseMapper on ContactsResponse? {
   ContactsModel toDomain() {
     return ContactsModel(
-      this?.phone.nonNullable ?? Constants.zero,
+      this?.phone.nonNullable ?? Constants.emptyString,
       this?.email.nonNullable ?? Constants.emptyString,
-      this?.link.nonNullable ?? Constants.zero,
+      this?.link.nonNullable ?? Constants.emptyString,
     );
   }
 }
@@ -29,6 +29,15 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
     return AuthenticationModel(
       this?.customer.toDomain(),
       this?.contacts.toDomain(),
+    );
+  }
+}
+
+extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
+  ForgotPasswordModel toDomain() {
+    return ForgotPasswordModel(
+      this?.oldPassword.nonNullable ?? Constants.emptyString,
+      this?.newPassword.nonNullable ?? Constants.emptyString,
     );
   }
 }
