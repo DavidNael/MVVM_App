@@ -180,8 +180,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, Routes.register);
+                        Navigator.pushNamed(context, Routes.register);
                       },
                       child: Text(
                         AppStrings.notMember,

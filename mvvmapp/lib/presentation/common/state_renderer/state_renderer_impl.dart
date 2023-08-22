@@ -31,6 +31,26 @@ class LoadingState extends FlowState {
   String getTitle() => title;
 }
 
+class SuccessState extends FlowState {
+  StateRendererState stateRendererState;
+  String title;
+  String message;
+  SuccessState({
+    required this.stateRendererState,
+    this.title = Constants.emptyString,
+    this.message = AppStrings.resetSuccess,
+  });
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererState getRendererState() => stateRendererState;
+
+  @override
+  String getTitle() => title;
+}
+
 class ErrorState extends FlowState {
   StateRendererState stateRendererState;
   String title;
@@ -98,6 +118,22 @@ extension FlowStateExtension on FlowState {
       case LoadingState:
         {
           if (getRendererState() == StateRendererState.loadingPopup) {
+            showPopup(context);
+            return contentScreenWidget;
+          } else {
+            return StateRenderer(
+              state: getRendererState(),
+              retryFunction: retryFunction,
+              stateTitle: getTitle(),
+              stateMessage: getMessage(),
+            );
+          }
+        }
+
+      case SuccessState:
+        {
+          _dismissDialog(context);
+          if (getRendererState() == StateRendererState.successPopup) {
             showPopup(context);
             return contentScreenWidget;
           } else {

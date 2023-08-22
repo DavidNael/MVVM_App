@@ -10,15 +10,18 @@ import 'package:mvvmapp/data/repository/repository_impl.dart';
 import 'package:mvvmapp/domain/repository/repository.dart';
 import 'package:mvvmapp/domain/usecase/forgot_password_usecase.dart';
 import 'package:mvvmapp/domain/usecase/login_usecase.dart';
+import 'package:mvvmapp/domain/usecase/register_usecase.dart';
 import 'package:mvvmapp/presentation/forgot_password/viewmodel/forgot_password_viewmodel.dart';
 import 'package:mvvmapp/presentation/login/viewmodel/login_viewmodel.dart';
+import 'package:mvvmapp/presentation/register/viewmodel/register_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getItInstance = GetIt.instance;
 Future<void> initAppModule() async {
   final sharedPreferences = await SharedPreferences.getInstance();
 
-  getItInstance.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  getItInstance
+      .registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   getItInstance.registerLazySingleton<AppPreferences>(
       () => AppPreferences(getItInstance<SharedPreferences>()));
@@ -31,13 +34,14 @@ Future<void> initAppModule() async {
 
   Dio dio = await getItInstance<DioFactory>().getDio();
 
-  getItInstance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+  getItInstance
+      .registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   getItInstance.registerLazySingleton<RemoteDataSource>(
       () => RemoteDataSourceImpl(getItInstance<AppServiceClient>()));
 
-  getItInstance.registerLazySingleton<Repository>(() =>
-      RepositoryImpl(getItInstance<RemoteDataSource>(), getItInstance<NetworkInfo>()));
+  getItInstance.registerLazySingleton<Repository>(() => RepositoryImpl(
+      getItInstance<RemoteDataSource>(), getItInstance<NetworkInfo>()));
 }
 
 void initLoginModule() {
@@ -48,6 +52,16 @@ void initLoginModule() {
         () => LoginViewModel(getItInstance<LoginUseCase>()));
   }
 }
+
+void initRegisterModule() {
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+    getItInstance.registerFactory<RegisterUseCase>(
+        () => RegisterUseCase(getItInstance<Repository>()));
+    getItInstance.registerFactory<RegisterViewModel>(
+        () => RegisterViewModel(getItInstance<RegisterUseCase>()));
+  }
+}
+
 void initForgotPasswordModule() {
   if (!GetIt.I.isRegistered<ForgotPasswordUseCase>()) {
     getItInstance.registerFactory<ForgotPasswordUseCase>(

@@ -46,7 +46,8 @@ class ForgotPasswordViewModel extends BaseViewModel
       },
       (model) {
         if (kDebugMode) print(model.newPassword);
-        inputState.add(StartState());
+        inputState.add(
+            SuccessState(stateRendererState: StateRendererState.successPopup));
       },
     );
   }

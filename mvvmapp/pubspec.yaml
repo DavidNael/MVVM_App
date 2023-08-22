@@ -29,6 +29,8 @@ dependencies:
   freezed_annotation: ^2.4.1
   get_it: ^7.6.0
   lottie: ^2.6.0
+  country_code_picker: ^3.0.0
+  image_picker: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -48,10 +50,12 @@ flutter:
     - assets/images/hollow_circle_icon.svg
     - assets/images/solid_circle_icon.svg
     - assets/images/left_arrow_icon.svg
+    - assets/images/camera_icon.svg
     - assets/images/right_arrow_icon.svg
     - assets/json/empty_animation.json
     - assets/json/error_animation.json
     - assets/json/loading_animation.json
+    - assets/json/success_animation.json
 
   fonts:
     - family: Montserrat

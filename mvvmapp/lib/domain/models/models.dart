@@ -38,3 +38,37 @@ class ForgotPasswordModel {
   String newPassword;
   ForgotPasswordModel(this.oldPassword, this.newPassword);
 }
+
+class ServiceModel {
+  String id;
+  String title;
+  String image;
+  ServiceModel(this.id, this.title, this.image);
+}
+
+class BannersModel {
+  String id;
+  String title;
+  String image;
+  String link;
+  BannersModel(this.id, this.title, this.image, this.link);
+}
+
+class StoreModel {
+  String id;
+  String title;
+  String image;
+  StoreModel(this.id, this.title, this.image);
+}
+
+class HomeDataModel {
+  List<ServiceModel> serviceModel;
+  List<BannersModel> bannersModel;
+  List<StoreModel> storeModel;
+  HomeDataModel(this.serviceModel, this.bannersModel, this.storeModel);
+}
+
+class HomeModel {
+  HomeDataModel? homeDataModel;
+  HomeModel(this.homeDataModel);
+}

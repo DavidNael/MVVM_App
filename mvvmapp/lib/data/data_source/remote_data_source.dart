@@ -4,7 +4,10 @@ import 'package:mvvmapp/data/response/responses.dart';
 
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
-  Future<ForgotPasswordResponse> forgotPassword(ForgotPasswordRequest forgotPasswordRequest);
+  Future<AuthenticationResponse> register(RegisterRequest loginRequest);
+  Future<ForgotPasswordResponse> forgotPassword(
+      ForgotPasswordRequest forgotPasswordRequest);
+  Future<HomeResponse> getHome();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -17,8 +20,25 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
+  Future<AuthenticationResponse> register(RegisterRequest loginRequest) async {
+    return await appServiceClient.register(
+      loginRequest.username,
+      loginRequest.countryCode,
+      loginRequest.mobileNumber,
+      "",
+      loginRequest.email,
+      loginRequest.password,
+    );
+  }
+
+  @override
   Future<ForgotPasswordResponse> forgotPassword(
       ForgotPasswordRequest forgotPasswordRequest) async {
     return await appServiceClient.forgotPassword(forgotPasswordRequest.email);
+  }
+
+  @override
+  Future<HomeResponse> getHome() async {
+    return await appServiceClient.getHome();
   }
 }

@@ -14,8 +14,19 @@ abstract class AppServiceClient {
     @Field("email") String email,
     @Field("password") String password,
   );
+  @POST("/customer/register")
+  Future<AuthenticationResponse> register(
+    @Field("username") String username,
+    @Field("country-code") String countryCode,
+    @Field("mobile-number") String mobileNumber,
+    @Field("profile-picture") String profilePicture,
+    @Field("email") String email,
+    @Field("password") String password,
+  );
   @POST("/customer/forgot-password")
   Future<ForgotPasswordResponse> forgotPassword(
     @Field("email") String email,
   );
+  @GET("/home")
+  Future<HomeResponse> getHome();
 }

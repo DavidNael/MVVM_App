@@ -41,3 +41,60 @@ extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
     );
   }
 }
+
+extension ServiceResponseMapper on ServiceResponse? {
+  ServiceModel toDomain() {
+    return ServiceModel(
+      this?.id.nonNullable ?? Constants.emptyString,
+      this?.title.nonNullable ?? Constants.emptyString,
+      this?.image.nonNullable ?? Constants.emptyString,
+    );
+  }
+}
+
+extension BannersResponseMapper on BannersResponse? {
+  BannersModel toDomain() {
+    return BannersModel(
+      this?.id.nonNullable ?? Constants.emptyString,
+      this?.title.nonNullable ?? Constants.emptyString,
+      this?.image.nonNullable ?? Constants.emptyString,
+      this?.link.nonNullable ?? Constants.emptyString,
+    );
+  }
+}
+
+extension StoreResponseMapper on StoreResponse? {
+  StoreModel toDomain() {
+    return StoreModel(
+      this?.id.nonNullable ?? Constants.emptyString,
+      this?.title.nonNullable ?? Constants.emptyString,
+      this?.image.nonNullable ?? Constants.emptyString,
+    );
+  }
+}
+
+extension HomeResponseMapper on HomeResponse? {
+  HomeModel toDomain() {
+    final serviceModel = this
+            ?.data
+            ?.services
+            ?.map((serviceResponse) => serviceResponse.toDomain())
+            .toList() ??
+        <ServiceModel>[];
+    final bannersModel = this
+            ?.data
+            ?.banners
+            ?.map((bannerResponse) => bannerResponse.toDomain())
+            .toList() ??
+        <BannersModel>[];
+
+    final storeModel = this
+        ?.data
+        ?.stores
+        ?.map((storeResponse) => storeResponse.toDomain())
+        .toList()??<StoreModel>[];
+
+    final data = HomeDataModel(serviceModel, bannersModel, storeModel);
+    return HomeModel(data);
+  }
+}

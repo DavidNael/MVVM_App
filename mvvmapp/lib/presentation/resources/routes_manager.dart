@@ -3,7 +3,7 @@ import 'package:mvvmapp/presentation/forgot_password/view/forgot_password_view.d
 import 'package:mvvmapp/presentation/login/view/login_view.dart';
 import 'package:mvvmapp/presentation/main/main_view.dart';
 import 'package:mvvmapp/presentation/onboarding/view/onboarding_view.dart';
-import 'package:mvvmapp/presentation/register/register_view.dart';
+import 'package:mvvmapp/presentation/register/view/register_view.dart';
 import 'package:mvvmapp/presentation/resources/strings_manager.dart';
 import 'package:mvvmapp/presentation/splash/splash_view.dart';
 import 'package:mvvmapp/presentation/store_details/store_details_view.dart';
@@ -29,6 +29,7 @@ class RoutesGenerator {
         initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginView());
       case Routes.register:
+        initRegisterModule();
         return MaterialPageRoute(builder: (_) => const RegisterView());
       case Routes.forgotPassword:
         initForgotPasswordModule();

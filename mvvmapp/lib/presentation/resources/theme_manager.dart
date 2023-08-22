@@ -45,7 +45,7 @@ ThemeData getApplicationTheme() {
         ),
       ),
     ),
-    // Text button theme
+    // Text theme
     textTheme: TextTheme(
       displayLarge: getSemiBoldTextStyle(
         color: ColorManager.darkGrey,
@@ -70,6 +70,10 @@ ThemeData getApplicationTheme() {
       bodySmall: getMediumTextStyle(
         color: ColorManager.grey1,
         fontSize: FontSize.s12,
+      ),
+      titleLarge: getRegularTextStyle(
+        color: ColorManager.white,
+        fontSize: FontSize.s16,
       ),
     ),
     // Input decoration theme

@@ -11,10 +11,12 @@ class ImageAssets {
   static const String solidCircleIcon = "$imagePath/solid_circle_icon.svg";
   static const String leftArrowIcon = "$imagePath/left_arrow_icon.svg";
   static const String rightArrowIcon = "$imagePath/right_arrow_icon.svg";
+  static const String cameraIcon = "$imagePath/camera_icon.svg";
 }
 
 class JsonAssets {
   static const String loadingAnimation = "$jsonPath/loading_animation.json";
+  static const String successAnimation = "$jsonPath/success_animation.json";
   static const String errorAnimation = "$jsonPath/error_animation.json";
   static const String emptyAnimation = "$jsonPath/empty_animation.json";
 }

@@ -43,12 +43,62 @@ class RepositoryImpl implements Repository {
   }
 
   @override
+  Future<Either<Failure, AuthenticationModel>> register(
+      RegisterRequest registerRequest) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.register(registerRequest);
+        if (response.status == ApiInternalStatus.success) {
+          return Right(response.toDomain());
+        } else {
+          return Left(Failure(ApiInternalStatus.error,
+              response.message ?? ResponseMessage.defaultError));
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print("Error is: $e");
+        }
+        return Left(ErrorHandler.handle(e).failure);
+      }
+    } else {
+      return Left(
+        DataSource.noInternetConnection.getFailure(),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, ForgotPasswordModel>> forgotPassword(
       ForgotPasswordRequest forgotPasswordRequest) async {
     if (await _networkInfo.isConnected) {
       try {
         final response =
             await _remoteDataSource.forgotPassword(forgotPasswordRequest);
+        if (response.status == ApiInternalStatus.success) {
+          return Right(response.toDomain());
+        } else {
+          return Left(Failure(ApiInternalStatus.error,
+              response.message ?? ResponseMessage.defaultError));
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print("Error is: $e");
+        }
+        return Left(ErrorHandler.handle(e).failure);
+      }
+    } else {
+      return Left(
+        DataSource.noInternetConnection.getFailure(),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, HomeModel>> getHome() async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response =
+            await _remoteDataSource.getHome();
         if (response.status == ApiInternalStatus.success) {
           return Right(response.toDomain());
         } else {
